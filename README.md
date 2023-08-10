@@ -1,52 +1,79 @@
-# fastify-polyglot
+# fastify-polyglot-typescript
 
-A plugin to handle i18n using [node-polyglot](https://www.npmjs.com/package/node-polyglot)
+A plugin to handle i18n using [node-polyglot](https://www.npmjs.com/package/node-polyglot), with TypeScript support.
 
-![Node.js CI](https://github.com/heply/fastify-polyglot/workflows/Node.js%20CI/badge.svg)
+![Node.js CI](https://github.com/topiocom/fastify-polyglot/workflows/Node.js%20CI/badge.svg)
 
 ## Install
 
 ```bash
-$ npm i --save fastify-polyglot
+$ npm i --save fastify-polyglot-typescript
 ```
 
 ## Usage
 
-```js
-const path = require('path')
+```ts
+import * as path from "path";
+import * as fastify from "fastify";
+import fastifyPolyglot from "fastify-polyglot-typescript";
 
-fastify.register(require('fastify-polyglot'), {
-  defaultLocale: 'it',
-  locales: {
-    it: require(path.join(__dirname, './locales/it'))
+const app = fastify();
+
+app.register(fastifyPolyglot, {
+  defaultLocale: "en",
+  localesPath: path.join(__dirname, "./locales"),
+});
+
+app.listen(3000, (err) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
   }
-})
-
-console.log(fastify.i18n.t('Hello!'))
-
-// 'Ciao!'
-```
-
-Alternatively, you can pass a path lo load locales from:
-
-```js
-const path = require('path')
-
-fastify.register(require('fastify-polyglot'), {
-  defaultLocale: 'it',
-  localesPath: path.join(__dirname, './locales')
-})
+  console.log("Server is running on port 3000");
+});
 ```
 
 ## Options
 
-| Name               | Description                                                                             |
-|--------------------|-----------------------------------------------------------------------------------------|
-| `defaultLocale`    |  The default locale code to be used (`en` by default).                                  |
-| `localesPath`      |  The folder from where to load locale dictionaries (`./locales` by default).            |
-| `locales`          |  A map of locales, where keys are locale codes and values are translation dictionaries. |
+| Name            | Description                                                                 |
+| --------------- | --------------------------------------------------------------------------- |
+| `defaultLocale` | The default locale code to be used (`en` by default).                       |
+| `localesPath`   | The folder from where to load locale dictionaries (`./locales` by default). |
 
-**NOTE:** if both `localesPath` and `locales` are passed, dictionaries will be merged together.
+## Types
+
+TypeScript types are included in this package to provide better development experience. You can use these types to define the structure of your locale dictionaries and access the `i18n` instance on your Fastify app.
+
+Example usage of types:
+
+```ts
+import fastify, { FastifyInstance } from "fastify";
+import fastifyPolyglot, {
+  FastifyPolyglotOptions,
+  PolyglotInstance,
+} from "fastify-polyglot-typescript";
+
+const app: FastifyInstance = fastify();
+
+declare module "fastify" {
+  interface FastifyInstance {
+    i18n: PolyglotInstance;
+  }
+}
+
+app.register(fastifyPolyglot, {
+  defaultLocale: "en",
+  localesPath: path.join(__dirname, "./locales"),
+});
+
+app.listen(3000, (err) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log("Server is running on port 3000");
+});
+```
 
 ## Test
 
@@ -58,7 +85,7 @@ $ npm test
 
 This project is kindly sponsored by:
 
-[![Beliven](https://assets.beliven.com/brand/logo_pos_color.svg)](https://www.beliven.com)
+[Your Sponsor's Name](https://www.your-sponsor-link.com)
 
 ## License
 

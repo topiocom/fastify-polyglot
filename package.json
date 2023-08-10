@@ -1,5 +1,5 @@
 {
-  "name": "fastify-polyglot",
+  "name": "fastify-polyglot-typescript",
   "version": "1.1.0",
   "description": "A plugin to handle i18n",
   "main": "i18n.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beliven-it/fastify-polyglot.git"
+    "url": "git+https://github.com/topiocom/fastify-polyglot.git"
   },
   "keywords": [
     "fastify",
@@ -20,9 +20,9 @@
   "author": "Beliven",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/beliven-it/fastify-polyglot/issues"
+    "url": "https://github.com/topiocom/fastify-polyglot/issues"
   },
-  "homepage": "https://github.com/beliven-it/fastify-polyglot#readme",
+  "homepage": "https://github.com/topiocom/fastify-polyglot#readme",
   "devDependencies": {
     "@types/node": "^18.11.18",
     "@types/node-polyglot": "^2.4.2",
